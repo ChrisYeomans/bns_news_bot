@@ -5,36 +5,36 @@ import warnings
 __all__ = ['Tomd', 'convert']
 
 MARKDOWN = {
-    'h1': ('\n ', '\n'),
-    'h2': ('\n ', '\n'),
-    'h3': ('\n ', '\n'),
-    'h4': ('\n ', '\n'),
-    'h5': ('\n ', '\n'),
-    'h6': ('\n ', '\n'),
+    'h1': ('\n **', '**\n'),
+    'h2': ('\n **', '**\n'),
+    'h3': ('\n **', '**\n'),
+    'h4': ('\n **', '**\n'),
+    'h5': ('\n **', '**\n'),
+    'h6': ('\n **', '**\n'),
     'code': ('`', '`'),
     'ul': ('', ''),
     'ol': ('', ''),
-    'li': ('- ', ''),
+    'li': ('', ''),
     'blockquote': ('\n> ', '\n'),
     'em': ('', ''),
     'strong': ('', ''),
     'block_code': ('\n```\n', '\n```\n'),
     'span': ('', ''),
     'p': ('\n', '\n'),
-    'p_with_out_class': ('\n', '\n'),
+    'p_with_out_class': ('', ''),
     'inline_p': ('', ''),
     'inline_p_with_out_class': ('', ''),
     'b': ('', ''),
     'i': ('', ''),
     'del': ('', ''),
-    'hr': ('\n---', '\n\n'),
-    'thead': ('\n', '|------\n'),
-    'tbody': ('\n', '\n'),
-    'td': ('|', ''),
-    'th': ('|', ''),
-    'tr': ('', '\n'),
-    'table': ('', '\n'),
-    'e_p': ('', '\n')
+    'hr': ('', ''),
+    'thead': ('', ''),
+    'tbody': ('', ''),
+    'td': ('', ''),
+    'th': ('', ''),
+    'tr': ('', ''),
+    'table': ('', ''),
+    'e_p': ('', '')
 }
 
 BlOCK_ELEMENTS = {
@@ -184,10 +184,10 @@ class Element:
             if elt != "":
                 count = elt.count("|")  # count number of pipes
                 break
-        pipe = "\n|"  # beginning \n for safety
+        pipe = ""  # beginning \n for safety
         for i in range(count - 1):
-            pipe += "---|"
-        pipe += "\n"
+            pipe += ""
+        pipe += ""
         self.content = pipe + pipe + self.content + "\n"  # TODO: column titles?
         self.content = self.content.replace('|\n\n', '|\n')  # replace double new line
         self.content = self.content.replace("<br/>\n", "<br/>")  # end of column also needs a pipe

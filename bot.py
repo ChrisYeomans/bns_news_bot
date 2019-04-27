@@ -10,18 +10,16 @@ def main():
 	async def print_news(channel):
 		news = get_news()
 		if news:
-			tmp, link = news[0], news[1]
+			tmp, link = news[0].replace("\n\n\n", "\n").replace("\n\n", "\n"), news[1]
 			cntr = 0
 			out = ""
-			for a in tmp.split():
-				if a == "\\xa0":
-					pass
-				elif cntr + len(a) > 2000:
+			for a in tmp.split("\n"):
+				if cntr + len(a) > 2000:
 					await channel.send(out)
-					out = ""
-					cntr = 0
+					out = a + "\n"
+					cntr = len(a) + 1
 				else:
-					out += " " + a
+					out +=  a + "\n"
 					cntr += len(a) + 1
 			if out:
 				await channel.send(out)
@@ -49,7 +47,7 @@ def main():
 			return
 		if message.content == "Hello" and str(message.author) == "TheFirstFlame#0017":
 			await message.channel.send("*World*")
-		if message.content == "!fp_news" and str(message.author) == "TheFirstFlame#0017":
+		if message.content == "!fp" and str(message.author) == "TheFirstFlame#0017":
 			await print_news(message.channel)
 
 	client.loop.create_task(update_news())
