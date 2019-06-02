@@ -1,2 +1,2 @@
 # bns_news_bot
-bns_news_bot
+This discord bot gets the latest news for the mmorpg "Blade and Soul" from their website and displays it into a channel of choice, replace the channel_id in the get_channel() function in update_news().
