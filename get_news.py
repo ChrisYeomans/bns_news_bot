@@ -1,5 +1,5 @@
 #! usr/bin/env python3
-import sys, requests, bs4, datetime, to_md, tomd
+import sys, requests, bs4, datetime, to_md
 
 def main():
 	tmp = get_news()

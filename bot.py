@@ -1,10 +1,12 @@
 #! usr/bin/env python3
 
-import discord, dbl, asyncio, datetime
+import discord, asyncio, datetime
 from get_news import get_news
 
+ready = True
+
 def main():
-	TOKEN = "NTcxNDI3OTI4MzMyODI4NzEy.XMNmKA.wXKFt4z4zoRKTP8nLIA87wSkYnY"
+	TOKEN = input()
 	client = discord.Client()
 	
 	async def print_news(channel):
@@ -27,15 +29,18 @@ def main():
 		else:
 			await(channel.send("no new news"))
 
-	async def update_news():
+	async def update_news(server):
+		global ready
 		await client.wait_until_ready()
 		if datetime.datetime.now().hour == 23:
-			for channel in member.server.channels:
-				if str(channel) == "bns-news-update":
-					await print_news(message.channel)
-
-		else:
-			await asyncio.sleep(3600)
+			channel = server.get_channel(571742303795019776)
+			if str(channel) == "bns-news-update":
+				await print_news(channel)
+				ready = False
+				await asyncio.sleep(3600)
+				ready = True
+			else:
+				await channel.send("rip wrong channel")
 
 	@client.event
 	async def on_ready():
@@ -43,14 +48,14 @@ def main():
 	
 	@client.event
 	async def on_message(message):
-		if message.author == client.user:
-			return
+		global ready
+		if not message.author.bot and ready:
+			await update_news(message.guild)
 		if message.content == "Hello" and str(message.author) == "TheFirstFlame#0017":
 			await message.channel.send("*World*")
 		if message.content == "!fp" and str(message.author) == "TheFirstFlame#0017":
-			await print_news(message.channel)
+			await print_news(msg.channel)
 
-	client.loop.create_task(update_news())
 	client.run(TOKEN)
 
 if __name__ == "__main__":
