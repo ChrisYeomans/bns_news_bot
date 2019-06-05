@@ -7,10 +7,13 @@ def get_links(src):
 				if i == "<img" or in_img_tag:
 					in_img_tag = True
 					if i[:3] == "src":
-						out += i[5:-1] + " "
+						out += "http:" + i[5:-1] + " "
 					if i[-2:] == "/>":
 						in_img_tag = False
 				else:
-					out += i + " "
+					if i == "&amp;":
+						out += "& "
+					else:
+						out += i + " "
 			out += '\n'
 	return out
