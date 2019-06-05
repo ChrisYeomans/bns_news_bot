@@ -3,7 +3,7 @@
 import discord, asyncio, datetime
 from get_news import get_news
 
-ready = True
+update_news_ready= True
 
 def main():
 	TOKEN = input()
@@ -36,9 +36,9 @@ def main():
 			channel = server.get_channel(571742303795019776)
 			if str(channel) == "bns-news-update":
 				await print_news(channel)
-				ready = False
+				update_news_ready= False
 				await asyncio.sleep(3600)
-				ready = True
+				update_news_ready= True
 			else:
 				await channel.send("rip wrong channel")
 
@@ -48,8 +48,8 @@ def main():
 	
 	@client.event
 	async def on_message(message):
-		global ready
-		if not message.author.bot and ready:
+		global update_news_ready
+		if not message.author.bot and update_news_ready:
 			await update_news(message.guild)
 		if message.content == "Hello" and str(message.author) == "TheFirstFlame#0017":
 			await message.channel.send("*World*")

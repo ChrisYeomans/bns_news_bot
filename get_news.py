@@ -1,5 +1,5 @@
 #! usr/bin/env python3
-import sys, requests, bs4, datetime, to_md
+import sys, requests, bs4, datetime, tomd, extras
 
 def main():
 	tmp = get_news()
@@ -28,7 +28,9 @@ def extract_news(link):
 	soup = bs4.BeautifulSoup(page.text, 'html.parser')
 	article_html = soup.select(".article")[0]
 	article = str(article_html.encode('utf-8'))
-	md = ''.join(to_md.convert(article).replace("\\n", "\n").replace("\\xc2", "").replace("\\xa0", "").replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\\xe2\\x80\\x99", "'").split("|"))
+	md = ''.join(tomd.convert(article).replace("\\n", "\n").replace("\\xc2", "").replace("\\xa0", "").replace("\n\n\n", "\n").replace("\n\n", "\n").replace("\\xe2\\x80\\x99", "'").split("|"))
+	md = md.replace("\\xe2", "").replace("\\x86", "").replace("\\x92", "").replace("\\x80", "").replace("\\93", "")
+	md = extras.get_links(md)
 
 	return(md)
 
