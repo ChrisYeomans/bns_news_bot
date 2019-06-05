@@ -54,7 +54,7 @@ def main():
 		if message.content == "Hello" and str(message.author) == "TheFirstFlame#0017":
 			await message.channel.send("*World*")
 		if message.content == "!fp" and str(message.author) == "TheFirstFlame#0017":
-			await print_news(msg.channel)
+			await print_news(message.channel)
 
 	client.run(TOKEN)
 
