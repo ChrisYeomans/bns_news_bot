@@ -18,7 +18,8 @@ def get_news():
 	for a in news_article_list:
 		link = "https://www.bladeandsoul.com"+a['href']
 		date_posted = a.find('span').get_text().split('|')[0].split(',')[0].strip()
-		if date_posted == datetime.datetime.now().strftime("%B") + str(datetime.datetime.now().day):
+		curr_day = str(datetime.datetime.now().day)
+		if date_posted.split()[1] == (curr_day if len(curr_day) == 2 else '0' + curr_day):
 			return [extract_news(link), link]
 	return []
 
