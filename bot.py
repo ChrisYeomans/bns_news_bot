@@ -33,7 +33,7 @@ def main():
 		global ready
 		await client.wait_until_ready()
 		if datetime.datetime.now().hour == 23:
-			channel = server.get_channel(571742303795019776)
+			channel = server.get_channel(574844490854957056)
 			if str(channel) == "bns-news-update":
 				await print_news(channel)
 				update_news_ready= False
